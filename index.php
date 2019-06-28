@@ -1,6 +1,10 @@
 <?php
 
-include('./db/db_connect.php');
+$conn = include('./db/db_connect.php');
+
+include('./model/Products.php');
+
+$productsModel = new Products($conn);
 
 $errors = array('product_name' => '', 'product_price' => '', 'product_image' => '');
 
@@ -32,26 +36,21 @@ if (isset($_POST['submit'])) {
         // 如果提交数据存在错误，非空 ， 那么不保存任何数据
 
     } else {
-        // 保存数据到数据库
-        $product_name = mysqli_real_escape_string($conn, $product_name);
-        $product_price = mysqli_real_escape_string($conn, $product_price);
-        $product_image = mysqli_real_escape_string($conn, $product_image);
-
-        $sql = "INSERT INTO products(product_name,product_price,product_image) VALUES ('$product_name', '$product_price', '$product_image')";
-
-        echo $sql;
-        if (mysqli_query($conn, $sql)) {
-            // 重新加载本页面
-//            header('Location: index.php');
-
-        } else {
-            echo 'query error: ' . mysqli_error($conn);
+        // 如果有错误会抛出异常
+        try {
+            $productsModel->create($product_name, $product_price, $product_image);
+            echo "success";
+        } catch (Exception $exception) {
+            echo $exception->getMessage();
         }
-
     }
 
-//    echo " $product_name ---- $product_price ---- $product_image ---";
+    $products = $productsModel->getAll();
 
+    print_r($products);
+
+    // 关闭数据库连接
+    mysqli_close($conn);
 
 }
 ?>
