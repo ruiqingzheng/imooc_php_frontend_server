@@ -1,39 +1,72 @@
 <?php
+if (isset($_POST['submit'])) {
+    if (empty($_POST['product_name'])) {
+        // 给予表单验证错误提示信息
+        $errors['product_name'] = "产品名称不能为空";
 
+    } else {
+        $product_name = $_POST['product_name'];
+    }
+
+    if (empty($_POST['product_price'])) {
+        $errors['product_price'] = "产品价格不能为空";
+    } else {
+        $product_price = $_POST['product_price'];
+    }
+
+    if (empty($_POST['product_image'])) {
+        $errors['product_image'] = '请输入产品图片链接地址';
+    } else {
+        $product_image = $_POST['product_image'];
+    }
+
+
+    if (count($errors)) {
+        // 如果提交数据存在错误，那么不保存任何数据
+    } else {
+        // 保存数据到数据库
+
+    }
+
+    echo " $product_name ---- $product_price ---- $product_image ---";
+
+
+}
 ?>
 
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.bootcss.com/materialize/1.0.0-rc.2/css/materialize.css" rel="stylesheet">
-    <title>Products List page</title>
-</head>
-<body class="grey lighten-4">
-<nav>
-    <div class="nav-wrapper teal">
-        <a href="#" class="brand-logo">Product List demo -- php</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="#">Link1</a></li>
-            <li><a href="#">Link2</a></li>
-            <li><a href="#">Link3</a></li>
-        </ul>
-    </div>
-</nav>
+<?php include("./templates/header.php"); ?>
 
-<div class="container">
+<div class="container" style="min-height: 600px ">
 
+    <section class="container grey-text">
+        <h4 class="center teal-text"> 添加商品</h4>
+        <form method='post' action="<?php echo $_SERVER['PHP_SELF'] ?>">
+
+            <label for="product_name">名称</label>
+            <input type="text" name="product_name" placeholder="">
+            <div class="red-text"><?php echo $errors['product_name']; ?></div>
+
+            <label for="product_price">价格</label>
+            <input type="text" name="product_price">
+            <div class="red-text"><?php echo $errors['product_price']; ?></div>
+
+            <lable for="product_image">图片</lable>
+            <input type="text" name="product_image" value="https://www.baidu.com/img/baidu_resultlogo@2.png">
+            <div class="red-text"><?php echo $errors['product_image']; ?></div>
+
+            <div class="center">
+                <input type="submit" name="submit" value="提交" class="btn brand z-depth-0">
+            </div>
+        </form>
+
+
+    </section>
 
 
 </div>
 
+<?php include('./templates/footer.php') ?>
 
-<footer class="section">
-    <div class="center grey-text">&copy; Copyright 2019</div>
-</footer>
-
-</body>
 </html>
