@@ -1,6 +1,6 @@
 
 <?php
-    print_r($products)
+//    print_r($products)
 ?>
 
 <!doctype html>
@@ -10,6 +10,8 @@
 <div class="container" style="min-height: 600px; margin-top: 50px;">
 
     <?php include('form.php'); ?>
+
+    <?php include('list.php')?>
 
 
 </div>

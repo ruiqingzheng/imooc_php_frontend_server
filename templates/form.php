@@ -13,7 +13,7 @@
 
         <label for="product_image">图片</label>
         <input type="text" name="product_image" placeholder="图片"
-               value="https://www.baidu.com/img/baidu_resultlogo@2.png">
+               value="https://www.62icon.com/client/assets/img/index/custom.svg">
         <div class="red-text"><?php echo $errors['product_image']; ?></div>
 
         <div class="center">
