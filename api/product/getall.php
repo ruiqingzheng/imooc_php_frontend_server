@@ -1,4 +1,6 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json');
 
 require __DIR__ . '/../../model/Products.php';
 $conn = require(__DIR__ . '/../../db/db_connect.php');
